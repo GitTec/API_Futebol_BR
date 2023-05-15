@@ -12,8 +12,8 @@ export function Routes() {
             <Navigator
                 screenOptions={{
                     headerShown: false
-                }}
-            >
+                }}>
+                    
                 <Screen
                     name="Home"
                     component={Home}
