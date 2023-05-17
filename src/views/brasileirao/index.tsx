@@ -1,57 +1,26 @@
-import { ScrollView, View } from "react-native"
-import { ActivityIndicator, DataTable, Text } from 'react-native-paper'
-import { ITimeClassificacao } from '../../interfaces/brasileirao-interfaces'
-import { useState, useEffect } from "react"
-import { styles } from "../brasileirao/index.styles"
-import api from "../../services/api-futebol"
+import { useState } from 'react';
+import { BottomNavigation, Text } from 'react-native-paper';
+import { TabelaBrasileirao } from "../../fragments/tabela-brasileirao";
+import { RodadasBrasileirao } from '../../fragments/rodadas-brasileirao';
 
-export default function Brasileirao() {
-    const [classificacao, setClassificacao] = useState<ITimeClassificacao[]>([])
-    const [isLoading, setIsLoading] = useState(false)
+export function Brasileirao() {
 
-    useEffect(() => {
-        setIsLoading(true)
-        api.get('campeonatos/10/tabela').then((result) => {
-            setClassificacao(result.data)
-        }).finally(() => {
-            setIsLoading(false)
-        })
-    }, [])
+    const [index, setIndex] = useState(0);
+    const [rotas] = useState([
+        { key: 'tabela', title: 'Tabela', focusedIcon: 'format-list-numbered' },
+        { key: 'rodada', title: 'Rodada', focusedIcon: 'soccer', unfocusedIcon: 'soccer-field' },
+        { key: 'sobre', title: 'Sobre', focusedIcon: 'script-text' },
+    ]);
 
-    return <ScrollView>
-        <View style={styles.container}>
-            <Text variant="titleLarge">Classificação Brasileirão</Text>
+    const renderScene = BottomNavigation.SceneMap({
+        tabela: () => <TabelaBrasileirao />,
+        rodada: () => <RodadasBrasileirao/>,
+        sobre: () => <Text>Sobre</Text>
+    });
 
-            <DataTable>
-                <DataTable.Header>
-                    <DataTable.Title>Clas.</DataTable.Title>
-                    <DataTable.Title>Time</DataTable.Title>
-                    <DataTable.Title>Pnts</DataTable.Title>
-                    <DataTable.Title>Jgs</DataTable.Title>
-                    <DataTable.Title>V</DataTable.Title>
-                    <DataTable.Title>E</DataTable.Title>
-                    <DataTable.Title>D</DataTable.Title>
-                    <DataTable.Title>SG</DataTable.Title>
-                    <DataTable.Title>Aprv(%)</DataTable.Title>
-                </DataTable.Header>
-                {isLoading && <ActivityIndicator animating={true} size={80} />}
-                {
-                    classificacao.map((row) => {
-                        return <DataTable.Row key={row.time.time_id}>
-                            <DataTable.Cell>{row.posicao}</DataTable.Cell>
-                            <DataTable.Cell>{row.time.nome_popular}</DataTable.Cell>
-                            <DataTable.Cell>{row.pontos}</DataTable.Cell>
-                            <DataTable.Cell>{row.jogos}</DataTable.Cell>
-                            <DataTable.Cell>{row.aproveitamento}</DataTable.Cell>
-                            <DataTable.Cell>{row.vitorias}</DataTable.Cell>
-                            <DataTable.Cell>{row.empates}</DataTable.Cell>
-                            <DataTable.Cell>{row.derrotas}</DataTable.Cell>
-                            <DataTable.Cell>{row.saldo_gols}</DataTable.Cell>
-                        </DataTable.Row>
-                    })
-
-                }
-            </DataTable>
-        </View>
-    </ScrollView>
-}
+    return <BottomNavigation
+        navigationState={{ index, routes: rotas }}
+        onIndexChange={setIndex}
+        renderScene={renderScene}
+    />
+} 

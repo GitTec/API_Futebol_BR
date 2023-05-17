@@ -10,7 +10,7 @@ export interface ITimeClassificacao{
     saldo_gols: number;
     aproveitamento: number;
     ultimos_jogos: string[];
-    time: ITime
+    time: ITime;
 }
 
 export interface ITime{

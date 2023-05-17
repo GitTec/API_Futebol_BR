@@ -5,7 +5,7 @@ import { styles } from "./index.styles"
 import { cores } from '../../constants/colors';
 import logo from "../../../assets/logo.png"
 
-export default function Home() {
+export function Home() {
     const { navigate } = useNavigation();
     return <View style={styles.container}>
         <Image
