@@ -35,11 +35,11 @@ export function Home() {
                 buttonColor={cores.azulClaro}
                 style={styles.botao}
                 onPress={() => {
-                    console.log('Pressed')
+                    //@ts-ignore
+                    navigate("CopaDoBrasil")
                 }}>
                 Copa do Brasil
             </Button>
-
         </View>
     </View>
 }

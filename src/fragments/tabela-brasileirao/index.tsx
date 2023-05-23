@@ -1,20 +1,22 @@
 import { ScrollView, View } from "react-native"
-import { ActivityIndicator, DataTable, Text } from 'react-native-paper'
-import { ITimeClassificacao } from '../../interfaces/brasileirao.interfaces'
+import { DataTable, Text } from 'react-native-paper'
 import { useState, useEffect } from "react"
 import { styles } from "./index.styles"
+import { ITimeClassificacao } from '../../interfaces/brasileirao.interfaces'
 import api from "../../services/api-futebol"
+import { useLoading } from "../../hooks/Loading"
+
 
 export function TabelaBrasileirao() {
     const [classificacao, setClassificacao] = useState<ITimeClassificacao[]>([])
-    const [isLoading, setIsLoading] = useState(false)
+    const {carregando, setCarregando} = useLoading()
 
     useEffect(() => {
-        setIsLoading(true)
+        setCarregando(true)
         api.get('campeonatos/10/tabela').then((result) => {
             setClassificacao(result.data)
         }).finally(() => {
-            setIsLoading(false)
+            setCarregando(false)
         })
     }, [])
 
@@ -34,7 +36,6 @@ export function TabelaBrasileirao() {
                     <DataTable.Title>SG</DataTable.Title>
                     <DataTable.Title>Aprv(%)</DataTable.Title>
                 </DataTable.Header>
-                {isLoading && <ActivityIndicator animating={true} size={80} />}
                 {
                     classificacao.map((row) => {
                         return <DataTable.Row key={row.time.time_id}>

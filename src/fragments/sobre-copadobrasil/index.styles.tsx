@@ -20,6 +20,8 @@ export const styles = StyleSheet.create({
     },
     detalhesRodada: {
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        
     },
+    
 });

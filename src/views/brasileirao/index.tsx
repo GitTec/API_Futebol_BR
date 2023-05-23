@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
+import { BottomNavigation} from 'react-native-paper';
 import { TabelaBrasileirao } from "../../fragments/tabela-brasileirao";
 import { RodadasBrasileirao } from '../../fragments/rodadas-brasileirao';
+import { BrasileiraoProvider } from '../../hooks/Brasileirao';
+import { SobreBrasileirao } from '../../fragments/sobre-brasileirao';
 
 export function Brasileirao() {
 
@@ -15,12 +17,14 @@ export function Brasileirao() {
     const renderScene = BottomNavigation.SceneMap({
         tabela: () => <TabelaBrasileirao />,
         rodada: () => <RodadasBrasileirao/>,
-        sobre: () => <Text>Sobre</Text>
+        sobre: () => <SobreBrasileirao/>
     });
 
-    return <BottomNavigation
-        navigationState={{ index, routes: rotas }}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-    />
+    return <BrasileiraoProvider>
+        <BottomNavigation
+            navigationState={{ index, routes: rotas }}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+        />
+    </BrasileiraoProvider>
 } 

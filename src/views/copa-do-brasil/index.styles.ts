@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { cores } from "../../constants/colors";
+import { StyleSheet } from "react-native"
+import { cores } from "../../constants/colors"
 
 export const styles = StyleSheet.create({
     container: {
@@ -10,6 +10,17 @@ export const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         backgroundColor: cores.cinza
+    },
+    imagem: {
+        width: 150,
+        height: 150
+    },
+    areaBotoes: {
+        width: "100%",
+        marginTop: 30,
+    },
+    botao: {
+        marginTop: 5,
     },
     detalhes: {
         display: "flex",

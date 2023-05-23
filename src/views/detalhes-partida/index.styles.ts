@@ -11,15 +11,22 @@ export const styles = StyleSheet.create({
         height: "100%",
         backgroundColor: cores.cinza
     },
-    detalhes: {
+    areagols: {
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
+        flexDirection: 'row',
         width: "100%",
+        justifyContent: "space-between"
     },
-    detalhesRodada: {
+    gols: {
+        top: 5,
         display: "flex",
-        alignItems: "center"
+        flexDirection: 'column',
     },
+    // golsVisitante: {
+    //     top: 5,
+    //     display: "flex",
+    //     flexDirection: 'column',
+    //     width: "100%",
+    //     justifyContent: "space-between"
+    // },
 });
